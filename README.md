@@ -2,7 +2,7 @@
 
 **Mirror your VS Code terminals to any phone. Bidirectional. No SSH. No subscription. No app.**
 
-![ClawCast demo](docs/demo.gif)
+![ClawCast running on phone — Claude Code terminal mirrored via trycloudflare.com](docs/demo.jpg)
 
 ---
 
