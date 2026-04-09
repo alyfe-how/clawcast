@@ -2,7 +2,7 @@
   "name": "clawcast",
   "displayName": "ClawCast",
   "description": "Mirror your VS Code terminals to any phone. Bidirectional. No SSH. No subscription. No app.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "alyfe-how",
   "author": "Alyfe How <alyfe.how@gmail.com>",
   "homepage": "https://github.com/alyfe-how/clawcast",

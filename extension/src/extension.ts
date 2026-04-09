@@ -109,6 +109,23 @@ function startRelay(context: vscode.ExtensionContext): Promise<void> {
         return;
       }
 
+      // Origin validation: block cross-origin WS connections (CSRF guard).
+      // Allowed: localhost (LAN direct), or the active cloudflared tunnel URL.
+      const origin = req.headers['origin'] as string | undefined;
+      if (origin) {
+        const isLocal = /^https?:\/\/localhost(:\d+)?$/.test(origin) ||
+                        /^https?:\/\/127\.0\.0\.1(:\d+)?$/.test(origin) ||
+                        /^https?:\/\/192\.168\.\d+\.\d+(:\d+)?$/.test(origin) ||
+                        /^https?:\/\/10\.\d+\.\d+\.\d+(:\d+)?$/.test(origin) ||
+                        /^https?:\/\/172\.(1[6-9]|2\d|3[01])\.\d+\.\d+(:\d+)?$/.test(origin);
+        const isTunnel = !!tunnelUrl && origin === tunnelUrl;
+        if (!isLocal && !isTunnel) {
+          outputChannel.appendLine(`[relay] Rejected WS from disallowed origin: ${origin}`);
+          ws.close(4003, 'Forbidden origin');
+          return;
+        }
+      }
+
       if (req.url?.split('?')[0] === '/view') {
         viewers.add(ws);
         outputChannel.appendLine('[relay] Viewer connected');
@@ -122,10 +139,18 @@ function startRelay(context: vscode.ExtensionContext): Promise<void> {
         }
 
         ws.on('message', (raw) => {
-          const msg = JSON.parse(raw.toString());
+          let msg: any;
+          try {
+            msg = JSON.parse(raw.toString());
+          } catch {
+            outputChannel.appendLine('[relay] Dropped malformed message');
+            return;
+          }
           if (msg.type === 'terminal_input') {
+            const input = typeof msg.input === 'string' ? msg.input : '';
+            if (input.length > 4096) { outputChannel.appendLine('[relay] Dropped oversized input'); return; }
             const term = vscode.window.terminals.find(t => getTerminalId(t) === msg.terminalId);
-            term?.sendText(msg.input, false);
+            term?.sendText(input, false);
           }
           if (msg.type === 'spawn_terminal') {
             createMirroredTerminal(msg.name || 'ClawCast');
