@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+extension/node_modules/
+Legacy/
+
+# Build output
+extension/out/
+extension/**/*.js.map
+
+# Release artifacts (distributed via GitHub Releases, not committed)
+*.vsix
+*.rar
+
+# Binaries (cloudflared ships in release .vsix only)
+cloudflared.exe
+extension/cloudflared.exe
+
+# Personal / workspace files
+Masterlist.txt
+.claude/
+Source/
+
+# Dev backup folders
+20260319*/
+
+# Legacy standalone relay (relay is now embedded in the extension)
+relay/
+web/
+start-relay.bat
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

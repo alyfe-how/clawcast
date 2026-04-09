@@ -1,0 +1,53 @@
+{
+  "name": "clawcast",
+  "displayName": "ClawCast",
+  "description": "Mirror your VS Code terminals to any phone. Bidirectional. No SSH. No subscription. No app.",
+  "version": "0.1.0",
+  "publisher": "alyfe-how",
+  "author": "Alyfe How <alyfe.how@gmail.com>",
+  "homepage": "https://github.com/alyfe-how/clawcast",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alyfe-how/clawcast"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "clawcast.start",
+        "title": "ClawCast: Start Mirror"
+      },
+      {
+        "command": "clawcast.stop",
+        "title": "ClawCast: Stop Mirror"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "esbuild src/extension.ts --bundle --outfile=out/extension.js --external:vscode --platform=node --format=cjs --sourcemap",
+    "watch": "esbuild src/extension.ts --bundle --outfile=out/extension.js --external:vscode --platform=node --format=cjs --sourcemap --watch",
+    "package": "npm run compile && vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/qrcode": "^1.5.6",
+    "@types/vscode": "^1.85.0",
+    "@types/ws": "^8.5.0",
+    "@vscode/vsce": "^2.24.0",
+    "esbuild": "^0.27.4",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "ws": "^8.18.0"
+  }
+}

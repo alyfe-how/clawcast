@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ClawCast</title>
+<script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">ClawCast</div>
+    <div style="display:flex;align-items:center;gap:6px;">
+<div class="status" id="status">Connecting...</div>
+    </div>
+  </header>
+
+  <!-- Grid view: all terminals -->
+  <div id="grid-view" class="grid"></div>
+
+  <!-- Full screen view: single terminal -->
+  <div id="full-view" class="hidden">
+    <div class="full-header">
+      <button id="back-btn">← Back</button>
+      <span id="full-title"></span>
+      <button id="spawn-btn">+ New Terminal</button>
+    </div>
+    <div id="full-terminal"></div>
+    <div id="key-row">
+      <button class="key-btn" data-seq="&#x1b;[A">↑</button>
+      <button class="key-btn" data-seq="&#x1b;[B">↓</button>
+      <button class="key-btn" data-seq="&#x1b;">Esc</button>
+      <button class="key-btn" data-seq="&#x09;">Tab</button>
+      <button class="key-btn" data-seq="&#x03;">^C</button>
+      <button class="key-btn" data-seq="&#x04;">^D</button>
+      <button class="key-btn" data-seq="&#x0d;">↵</button>
+    </div>
+    <div id="input-bar">
+      <input id="input-field" type="text" placeholder="Type command, press Enter..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
