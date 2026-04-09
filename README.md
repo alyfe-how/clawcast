@@ -67,31 +67,28 @@ That's it. Your phone is now a fully interactive terminal window for your machin
 
 ---
 
-## Why not Claude Code Remote Control?
+## How it compares
 
-Claude Code ships a `/remote-control` feature. It solves a different problem — here's the full picture:
+A few tools exist in this space. Here's an honest, factual breakdown:
 
-| Dimension | Claude Code Remote Control | **ClawCast** |
-|---|---|---|
-| **Core function** | Sync your Claude *conversation* + AI tool-call output to another device | Mirror raw VS Code *terminals* (any shell, any command) to any device |
-| **Transport** | HTTPS polling → Anthropic API broker → client | WebSocket (direct) + cloudflared tunnel (CGNAT bypass) |
-| **Infrastructure** | 100% Anthropic-managed — cloud required | 100% self-hosted — no external infra beyond cloudflared |
-| **Terminal input** | ❌ Remote is **read-only** — you can chat but not type into the terminal | ✅ Full bidirectional — type commands, they execute live |
-| **What streams** | Claude's reasoning output, tool calls, file edits made by Claude | Raw PTY output from every VS Code terminal (ANSI-accurate, xterm.js rendered) |
-| **Scope** | Claude Code sessions only | Any VS Code terminal — bash, PowerShell, Python REPL, Node, anything |
-| **Subscription** | Pro/Max/Team required (min ~$20/mo) | Free — zero ongoing cost |
-| **QR flow** | QR → Claude mobile app (iOS/Android only) | QR → any browser on any device |
-| **Mobile view** | Claude iOS/Android app required | Plain browser — no app install |
-| **Multi-terminal** | Single session view | Grid of all open terminals simultaneously |
-| **Spawn terminals** | ❌ No — read-only observer | ✅ Yes — spawn new VS Code terminals from phone |
-| **Close terminals** | ❌ No | ✅ Yes — long-press to close |
-| **ANSI rendering** | Text output only (conversation format) | Full ANSI/color via xterm.js |
-| **Auth model** | OAuth via claude.ai (Anthropic-gated) | Per-session token in QR URL (self-controlled) |
-| **Claude required** | ✅ Yes — fundamentally tied to Claude AI | ❌ No — works without Claude at all |
-| **VS Code required** | ❌ No | ✅ Yes (VS Code extension) |
-| **Latency** | ~100–500ms (cloud-routed) | ~20–100ms (direct WebSocket) |
+| Dimension | Claude `/remote` | VS Code Mobile | **ClawCast** |
+|---|---|---|---|
+| **Core function** | AI session streaming | Full VS Code remote | Raw PTY terminal mirror |
+| **Price** | Pro subscription (~$20/mo) | ~$2/month | Free forever |
+| **Infrastructure** | Anthropic cloud | Cloud-hosted | Self-hosted |
+| **Auth** | OAuth via claude.ai | Google sign-in required | QR session token — no account |
+| **Terminal input** | ❌ Read-only | ✅ Terminal control | ✅ Full bidirectional PTY |
+| **Multi-terminal grid** | ❌ Single session view | ❌ Single terminal | ✅ All terminals simultaneously |
+| **Spawn terminals** | ❌ | ❌ | ✅ From phone |
+| **Close terminals** | ❌ | ❌ | ✅ Long-press |
+| **Data privacy** | Routes via Anthropic | Routes via their servers | Never leaves your network |
+| **CGNAT bypass** | ✅ | Unknown | ✅ cloudflared |
+| **No account needed** | ❌ | ❌ | ✅ |
+| **No app needed** | ❌ Claude app required | ❌ Account required | ✅ Any browser |
+| **Claude required** | ✅ | ❌ | ❌ |
+| **Latency** | ~100–500ms | Unknown | ~20–100ms |
 
-They're complementary, not competitive. Remote Control is an AI session remote. ClawCast is a terminal I/O remote.
+Each tool has its own focus. Claude `/remote` is built for monitoring AI sessions. VS Code Mobile offers a full remote IDE experience. ClawCast is narrower in scope — raw terminal mirroring, free, self-hosted, no account.
 
 ---
 
